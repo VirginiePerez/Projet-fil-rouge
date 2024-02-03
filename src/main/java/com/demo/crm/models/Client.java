@@ -1,7 +1,9 @@
 package com.demo.crm.models;
 
-import com.demo.crm.models.ClientState;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -9,34 +11,36 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "company_name")
     private String companyName;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "email")
+
     private String email;
-    @Column(name = "phone", length = 20)
     private String phone;
-    @Column(name = "address")
     private String address;
-    @Column(name = "zip_code", length = 10)
+
+    @Column(name = "zip_code")
     private String zipCode;
-    @Column(name = "city")
+
     private String city;
-    @Column(name = "country")
     private String country;
 
-    @Enumerated
     @Column(name = "state")
-    private ClientState state;
+    private int state;
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public Client() {
     }
 
-    public Client(String companyName, String firstName, String lastName, String email,
-                  String phone, String address, String zipCode, String city, String country, ClientState state) {
+    public Client(String companyName, String firstName, String lastName, String email, String phone, String address, String zipCode, String city, String country, int state) {
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -129,11 +133,11 @@ public class Client {
         this.country = country;
     }
 
-    public ClientState getClientState() {
+    public int getState() {
         return state;
     }
 
-    public void setClientState(ClientState state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -152,17 +156,5 @@ public class Client {
                 ", country='" + country + '\'' +
                 ", state=" + state +
                 '}';
-    }
-
-    public int getStateValue() {
-        return this.state.ordinal();
-    }
-
-    public ClientState getState() {
-        return state;
-    }
-
-    public void setState(ClientState state) {
-        this.state = state;
     }
 }

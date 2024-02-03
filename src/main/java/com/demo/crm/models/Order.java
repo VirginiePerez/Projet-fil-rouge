@@ -8,41 +8,41 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "type_presta", nullable = false)
-    private String typePresta;
-    @Column(name = "designation")
+
+    @Column(name = "type_presta")
+    private String typeOrder;
+
     private String designation;
-    @Column(name = "nb_days")
-    private Integer nbDays;
-    @Column(name = "unit_price", columnDefinition = "numeric")
-    private Double unitPrice;
-    @Transient
-    private Double totalExcludeTaxe;
-    @Transient
-    private Double totalWithTaxe;
-    @Enumerated
-    @Column(name = "state")
-    private OrderState state;
+
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    public Client getClient() {
-        return client;
-    }
+    @Column(name = "nb_days")
+    private int nbDays;
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+    @Column(name = "unit_price", columnDefinition = "NUMERIC(10,2)")
+    private float unitPrice;
+
+    @Column(name = "total_exclude_taxe", columnDefinition = "NUMERIC(10,2)")
+    private float totalExcludeTaxe;
+
+    @Column(name = "total_with_taxe", columnDefinition = "NUMERIC(10,2)")
+    private float totalWithTaxe;
+
+    private int state;
 
     public Order() {
     }
 
-    public Order(String typePresta, String designation, Integer nbDays, Double unitPrice, OrderState state) {
-        this.typePresta = typePresta;
+    public Order(String typeOrder, String designation, Client client, int nbDays, float unitPrice, float totalExcludeTaxe, float totalWithTaxe, int state) {
+        this.typeOrder = typeOrder;
         this.designation = designation;
+        this.client = client;
         this.nbDays = nbDays;
         this.unitPrice = unitPrice;
+        this.totalExcludeTaxe = totalExcludeTaxe;
+        this.totalWithTaxe = totalWithTaxe;
         this.state = state;
     }
 
@@ -54,12 +54,12 @@ public class Order {
         this.id = id;
     }
 
-    public String getTypePresta() {
-        return typePresta;
+    public String getTypeOrder() {
+        return typeOrder;
     }
 
-    public void setTypePresta(String typePresta) {
-        this.typePresta = typePresta;
+    public void setTypeOrder(String typeOrder) {
+        this.typeOrder = typeOrder;
     }
 
     public String getDesignation() {
@@ -70,37 +70,51 @@ public class Order {
         this.designation = designation;
     }
 
-    public Integer getNbDays() {
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public int getNbDays() {
         return nbDays;
     }
 
-    public void setNbDays(Integer nbDays) {
+    public void setNbDays(int nbDays) {
         this.nbDays = nbDays;
     }
 
-    public Double getUnitPrice() {
+    public float getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public Double getTotalExcludeTaxe() {
-        this.totalExcludeTaxe = this.unitPrice * this.nbDays;
+    public float getTotalExcludeTaxe() {
         return totalExcludeTaxe;
     }
 
-    public Double getTotalWithTaxe() {
-        this.totalWithTaxe = this.getTotalExcludeTaxe() * 1.2;
+    public void setTotalExcludeTaxe(float totalExcludeTaxe) {
+        this.totalExcludeTaxe = totalExcludeTaxe;
+    }
+
+    public float getTotalWithTaxe() {
         return totalWithTaxe;
     }
 
-    public OrderState getState() {
+    public void setTotalWithTaxe(float totalWithTaxe) {
+        this.totalWithTaxe = totalWithTaxe;
+    }
+
+    public int getState() {
         return state;
     }
 
-    public void setState(OrderState state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -108,14 +122,14 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", typePresta='" + typePresta + '\'' +
+                ", typeOrder='" + typeOrder + '\'' +
                 ", designation='" + designation + '\'' +
+                ", client=" + client +
                 ", nbDays=" + nbDays +
                 ", unitPrice=" + unitPrice +
                 ", totalExcludeTaxe=" + totalExcludeTaxe +
                 ", totalWithTaxe=" + totalWithTaxe +
                 ", state=" + state +
-                ", client=" + client +
                 '}';
     }
 }

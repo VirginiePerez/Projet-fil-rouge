@@ -30,19 +30,21 @@ public class Order {
     @Column(name = "total_with_taxe", columnDefinition = "NUMERIC(10,2)")
     private float totalWithTaxe;
 
+
+    @Column(name = "state")
     private int state;
 
     public Order() {
     }
 
-    public Order(String typeOrder, String designation, Client client, int nbDays, float unitPrice, float totalExcludeTaxe, float totalWithTaxe, int state) {
+    public Order(String typeOrder, String designation, Client client, int nbDays, float unitPrice, int state) {
         this.typeOrder = typeOrder;
         this.designation = designation;
         this.client = client;
         this.nbDays = nbDays;
         this.unitPrice = unitPrice;
-        this.totalExcludeTaxe = totalExcludeTaxe;
-        this.totalWithTaxe = totalWithTaxe;
+        this.totalExcludeTaxe = unitPrice * nbDays;
+        this.totalWithTaxe = (float) (unitPrice * nbDays * 0.1);
         this.state = state;
     }
 

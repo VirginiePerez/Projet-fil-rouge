@@ -1,0 +1,26 @@
+meta {
+  name: POST clients
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/clients
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "companyName": "CRM1",
+      "firstName": "Machin",
+      "lastName": "Bidule",
+      "email": "mail@mail.com",
+      "phone": "0102030405",
+      "address": "adresse",
+      "zipCode": "12345",
+      "city": "City",
+      "country": "France",
+      "state": 1
+    }
+}

@@ -20,6 +20,6 @@ public enum ClientState {
                 return state;
             }
         }
-        throw new IllegalArgumentException("Invalid ClientState value: " + value);
+        throw new IllegalArgumentException("Invalid value: " + value);
     }
 }

@@ -2,6 +2,7 @@ package com.demo.crm.controller;
 
 import com.demo.crm.models.Client;
 import com.demo.crm.models.Order;
+import com.demo.crm.models.OrderState;
 import com.demo.crm.service.ClientService;
 import com.demo.crm.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/orders")
 public class OrderController {
     @Autowired
     OrderService orderService;
 
     // POST (Created)
-    @PostMapping("orders")
+    private static final Map<String, OrderState> STATE_MAP = new HashMap<>();
+
+    static {
+        STATE_MAP.put("CANCELED", OrderState.CANCELED);
+        STATE_MAP.put("OPTION", OrderState.OPTION);
+        STATE_MAP.put("CONFIRMED", OrderState.CONFIRMED);
+    }
+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody Order o) {
-        orderService.add(o);
-
+            orderService.add(o);
     }
 
     // GET (Read all)
-    @GetMapping("orders")
+    @GetMapping
     public List<Order> getList() {
         return orderService.getAll();
     }

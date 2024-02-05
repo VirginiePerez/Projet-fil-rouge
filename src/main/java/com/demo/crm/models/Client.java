@@ -32,16 +32,16 @@ public class Client {
     private String city;
     private String country;
 
-    @Column(name = "state")
-    private int state;
+    @Column(name = "state", columnDefinition = "int4")
+    private ClientState state;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
     public Client() {
     }
 
-    public Client(String companyName, String firstName, String lastName, String email, String phone, String address, String zipCode, String city, String country, int state) {
+    public Client(String companyName, String firstName, String lastName, String email, String phone, String address, String zipCode, String city, String country, ClientState state) {
         this.companyName = companyName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -134,12 +134,20 @@ public class Client {
         this.country = country;
     }
 
-    public int getState() {
+    public ClientState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(ClientState state) {
         this.state = state;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override

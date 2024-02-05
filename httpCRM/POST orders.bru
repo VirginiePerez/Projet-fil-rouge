@@ -4,8 +4,21 @@ meta {
   seq: 5
 }
 
-get {
+post {
   url: http://localhost:8080/orders
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+  "typeOrder": "IT",
+  "designation": "Formation SpringBoot",
+    "client": {
+  "id": 2
+  },
+  "nbDays": 3,
+  "unitPrice": 300.0,
+  "state": "CANCELED"
+  }
 }

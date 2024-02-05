@@ -23,20 +23,20 @@ public class Order {
 
     @Column(name = "unit_price", columnDefinition = "NUMERIC(10,2)")
     private float unitPrice;
-
+    @Transient
     @Column(name = "total_exclude_taxe", columnDefinition = "NUMERIC(10,2)")
     private float totalExcludeTaxe;
-
+    @Transient
     @Column(name = "total_with_taxe", columnDefinition = "NUMERIC(10,2)")
     private float totalWithTaxe;
 
-    private int state;
-
+    @Column(name = "state", columnDefinition = "int4")
+    private OrderState state;
 
     public Order() {
     }
 
-    public Order(String typeOrder, String designation, Client client, int nbDays, float unitPrice, float totalExcludeTaxe, float totalWithTaxe, int state) {
+    public Order(String typeOrder, String designation, Client client, int nbDays, float unitPrice, float totalExcludeTaxe, float totalWithTaxe, OrderState state) {
         this.typeOrder = typeOrder;
         this.designation = designation;
         this.client = client;
@@ -111,11 +111,11 @@ public class Order {
         this.totalWithTaxe = totalWithTaxe;
     }
 
-    public int getState() {
+    public OrderState getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(OrderState state) {
         this.state = state;
     }
 

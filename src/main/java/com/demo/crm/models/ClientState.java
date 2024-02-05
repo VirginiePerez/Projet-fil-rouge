@@ -14,12 +14,4 @@ public enum ClientState {
         return value;
     }
 
-    public static ClientState fromValue(int value) {
-        for (ClientState state : ClientState.values()) {
-            if (state.getValue() == value) {
-                return state;
-            }
-        }
-        throw new IllegalArgumentException("Invalid value: " + value);
-    }
 }

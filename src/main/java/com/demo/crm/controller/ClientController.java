@@ -1,30 +1,39 @@
 package com.demo.crm.controller;
 
 import com.demo.crm.models.Client;
+import com.demo.crm.models.ClientState;
 import com.demo.crm.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/clients")
 public class ClientController {
     @Autowired
     ClientService clientService;
-
     // POST (Created)
-    @PostMapping("clients")
+    private static final Map<String, ClientState> STATE_MAP = new HashMap<>();
+
+    static {
+        STATE_MAP.put("ACTIVE", ClientState.ACTIVE);
+        STATE_MAP.put("INACTIVE", ClientState.INACTIVE);}
+
+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void add(@RequestBody Client c) {
         clientService.add(c);
-
     }
 
     // GET (Read all)
-    @GetMapping("clients")
+    @GetMapping
     public List<Client> getList() {
         return clientService.getAll();
     }

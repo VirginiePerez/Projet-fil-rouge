@@ -96,7 +96,7 @@ public class Order {
     }
 
     public float getTotalExcludeTaxe() {
-        return totalExcludeTaxe;
+        return unitPrice *nbDays;
     }
 
     public void setTotalExcludeTaxe(float totalExcludeTaxe) {
@@ -104,7 +104,7 @@ public class Order {
     }
 
     public float getTotalWithTaxe() {
-        return totalWithTaxe;
+        return unitPrice * nbDays * 1.2f;
     }
 
     public void setTotalWithTaxe(float totalWithTaxe) {

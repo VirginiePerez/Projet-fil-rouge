@@ -35,8 +35,7 @@ public class Client {
     @Column(name = "state", columnDefinition = "int4")
     private ClientState state;
 
-    @OneToMany(mappedBy = "client")
-    private List<Order> orders = new ArrayList<>();
+
 
     public Client() {
     }
@@ -142,13 +141,6 @@ public class Client {
         this.state = state;
     }
 
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 
     @Override
     public String toString() {

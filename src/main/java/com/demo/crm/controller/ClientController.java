@@ -39,7 +39,7 @@ public class ClientController {
     }
 
     // GET (Read by id)
-    @GetMapping("clients/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Client> getById(@PathVariable("id") Integer id) {
         Optional<Client> opt = clientService.findById(id);
         if (opt.isEmpty()) {
@@ -51,7 +51,7 @@ public class ClientController {
     }
 
     // PUT (Update)
-    @PutMapping("clients/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Client> update(@RequestBody Client client,
                                          @PathVariable("id") Integer id) {
         if (!client.getId().equals(id)) {
@@ -63,7 +63,7 @@ public class ClientController {
     }
 
     // DELETE (Delete)
-    @DeleteMapping("clients/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Client> delete(@PathVariable("id") Integer id) {
         if(clientService.findById(id).isPresent()){
             clientService.delete(id);

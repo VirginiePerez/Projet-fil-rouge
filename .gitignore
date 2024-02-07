@@ -34,3 +34,6 @@ build/
 
 ### SQL Database ###
 .env
+
+
+src/main/resources/application.properties
